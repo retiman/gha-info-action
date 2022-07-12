@@ -1,0 +1,30 @@
+{
+  "name": "Node.js",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "16-buster"
+    }
+  },
+  "extensions": [
+    "EditorConfig.EditorConfig"
+  ],
+  "mounts": [
+    "source=node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+  // Runs after container creation and makes all the workspace files owned by the remote user.  Without this, vscode
+  // will have Docker mount everything with uid/gid 0 (which happens to be root in the container), for some reason.
+  // This makes all the existing source files owned by root (but newly created files are owned by the remote user just
+  // fine).
+  //
+  // The devcontainer configuration allows for setting mount options, but not mount args.  User can be set from the
+  // mount args but not the options.  Oh well.
+  //
+  // See https://code.visualstudio.com/docs/remote/devcontainerjson-reference
+  // See https://docs.docker.com/storage/bind-mounts/
+  "postCreateCommand": "sudo chown -R node.node ${containerWorkspaceFolder}",
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/node_modules/.bin"
+  },
+  "remoteUser": "node"
+}
