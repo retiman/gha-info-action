@@ -5,34 +5,45 @@ runs:
   using: composite
   steps:
     - name: Print environment variables
+      shell: bash
       run: printenv
 
     - name: Print env context
+      shell: bash
       run: echo '${{ toJSON(env) }}'
 
     - name: Print github context
+      shell: bash
       run: echo '${{ toJSON(github) }}'
 
     - name: Print job context
+      shell: bash
       run: echo '${{ toJSON(job) }}'
 
     - name: Print steps context
+      shell: bash
       run: echo '${{ toJSON(steps) }}'
 
     - name: Print runner context
+      shell: bash
       run: echo '${{ toJSON(runner) }}'
 
     - name: Print needs context
+      shell: bash
       run: echo '${{ toJSON(needs) }}'
 
     - name: Print inputs context
+      shell: bash
       run: echo '${{ toJSON(inputs) }}'
 
     - name: Print secrets context
+      shell: bash
       run: echo '${{ toJSON(secrets) }}'
 
     - name: Print strategy context
+      shell: bash
       run: echo '${{ toJSON(strategy) }}'
 
     - name: Print matrix context
+      shell: bash
       run: echo '${{ toJSON(matrix) }}'
