@@ -28,17 +28,17 @@ runs:
       shell: bash
       run: echo '${{ toJSON(runner) }}'
 
-    - name: Print needs context
-      shell: bash
-      run: echo '${{ toJSON(needs) }}'
+    #- name: Print needs context
+    #  shell: bash
+    #  run: echo '${{ toJSON(needs) }}'
 
     - name: Print inputs context
       shell: bash
       run: echo '${{ toJSON(inputs) }}'
 
-    - name: Print secrets context
-      shell: bash
-      run: echo '${{ toJSON(secrets) }}'
+    #- name: Print secrets context
+    #  shell: bash
+    #  run: echo '${{ toJSON(secrets) }}'
 
     - name: Print strategy context
       shell: bash
