@@ -1,0 +1,38 @@
+name: gha-info-action
+author: min.huang@alumni.usc.edu
+description:
+runs:
+  using: composite
+  steps:
+    - name: Print environment variables
+      run: printenv
+
+    - name: Print env context
+      run: echo '${{ toJSON(env) }}'
+
+    - name: Print github context
+      run: echo '${{ toJSON(github) }}'
+
+    - name: Print job context
+      run: echo '${{ toJSON(job) }}'
+
+    - name: Print steps context
+      run: echo '${{ toJSON(steps) }}'
+
+    - name: Print runner context
+      run: echo '${{ toJSON(runner) }}'
+
+    - name: Print needs context
+      run: echo '${{ toJSON(needs) }}'
+
+    - name: Print inputs context
+      run: echo '${{ toJSON(inputs) }}'
+
+    - name: Print secrets context
+      run: echo '${{ toJSON(secrets) }}'
+
+    - name: Print strategy context
+      run: echo '${{ toJSON(strategy) }}'
+
+    - name: Print matrix context
+      run: echo '${{ toJSON(matrix) }}'
