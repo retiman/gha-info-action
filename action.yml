@@ -1,0 +1,37 @@
+name: gha-info-action
+author: min.huang@alumni.usc.edu
+description:
+inputs:
+  env-context:
+    required: true
+    default: ${{ toJSON(env) }}
+  github-context:
+    required: true
+    default: ${{ toJSON(github) }}
+  inputs-context:
+    required: true
+    default: ${{ toJSON(inputs) }}
+  jobs-context:
+    required: true
+    default: ${{ toJSON(jobs) }}
+  matrix-context:
+    required: true
+    default: ${{ toJSON(matrix) }}
+  needs-context:
+    required: true
+    default: ${{ toJSON(needs) }}
+  runner-context:
+    required: true
+    default: ${{ toJSON(runner) }}
+  secrets-context:
+    required: true
+    default: ${{ toJSON(secrets) }}
+  steps-context:
+    required: true
+    default: ${{ toJSON(steps) }}
+  strategy-context:
+    required: true
+    default: ${{ toJSON(strategy) }}
+runs:
+  using: node16
+  main: dist/index.js
