@@ -1,6 +1,9 @@
 name: what
 author: min.huang@alumni.usc.edu
-description: What is GitHub Actions all about?
+description: |
+  What is GitHub Actions all about?
+
+  https://docs.github.com/en/actions/learn-github-actions/contexts
 inputs:
   output-directory:
     required: false
@@ -48,9 +51,9 @@ runs:
       shell: bash
       run: echo '${{ toJSON(runner) }}' > ${{ inputs.output-directory }}/runner-context.txt
 
-    - name: Print step context
+    - name: Print steps context
       shell: bash
-      run: echo '${{ toJSON(step) }}' > ${{ inputs.output-directory }}/step-context.txt
+      run: echo '${{ toJSON(steps) }}' > ${{ inputs.output-directory }}/steps-context.txt
 
     - name: Print strategy context
       shell: bash
