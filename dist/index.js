@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
-const process = __importStar(__nccwpck_require__(282));
 const show = (name, data, outputDirectory) => {
     core.startGroup(`Show '${name}' context`);
     core.info(data);
@@ -63,14 +62,14 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const stepsContext = core.getInput('steps-context', { required: false });
     const strategyContext = core.getInput('strategy-context', { required: false });
     const outputDirectory = core.getInput('output-directory', { required: false });
-    core.info('Show environment variables');
-    const data = JSON.stringify(process.env);
-    core.info(data);
-    if (outputDirectory) {
-        const outputFile = path.join(outputDirectory, `env.txt`);
-        fs.writeFileSync(outputFile, data);
-    }
-    core.endGroup();
+    //core.info('Show environment variables');
+    //const data = JSON.stringify(process.env);
+    //core.info(data);
+    //if (outputDirectory) {
+    //  const outputFile = path.join(outputDirectory, `env.txt`);
+    //  fs.writeFileSync(outputFile, data);
+    //}
+    //core.endGroup();
     show('env', envContext, outputDirectory);
     show('github', githubContext, outputDirectory);
     show('inputs', inputsContext, outputDirectory);
@@ -2165,14 +2164,6 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
-
-/***/ }),
-
-/***/ 282:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("process");
 
 /***/ }),
 

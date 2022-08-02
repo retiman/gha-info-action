@@ -35,7 +35,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const process = __importStar(require("process"));
 const show = (name, data, outputDirectory) => {
     core.startGroup(`Show '${name}' context`);
     core.info(data);
@@ -56,14 +55,14 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const stepsContext = core.getInput('steps-context', { required: false });
     const strategyContext = core.getInput('strategy-context', { required: false });
     const outputDirectory = core.getInput('output-directory', { required: false });
-    core.info('Show environment variables');
-    const data = JSON.stringify(process.env);
-    core.info(data);
-    if (outputDirectory) {
-        const outputFile = path.join(outputDirectory, `env.txt`);
-        fs.writeFileSync(outputFile, data);
-    }
-    core.endGroup();
+    //core.info('Show environment variables');
+    //const data = JSON.stringify(process.env);
+    //core.info(data);
+    //if (outputDirectory) {
+    //  const outputFile = path.join(outputDirectory, `env.txt`);
+    //  fs.writeFileSync(outputFile, data);
+    //}
+    //core.endGroup();
     show('env', envContext, outputDirectory);
     show('github', githubContext, outputDirectory);
     show('inputs', inputsContext, outputDirectory);
