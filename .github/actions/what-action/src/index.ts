@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as process from 'process';
+import * as util from 'util';
 
 const show = (name: string, data: string, outputDirectory?: string) => {
   core.startGroup(`Show '${name}' context`);
@@ -20,7 +21,6 @@ const run = async () => {
   const jobContext = core.getInput('job-context', { required: false });
   const matrixContext = core.getInput('matrix-context', { required: false });
   const runnerContext = core.getInput('runner-context', { required: false });
-  const secretsContext = core.getInput('secrets-context', { required: false });
   const stepsContext = core.getInput('steps-context', { required: false });
   const strategyContext = core.getInput('strategy-context', { required: false });
   const outputDirectory = core.getInput('output-directory', { required: false });
@@ -29,14 +29,14 @@ const run = async () => {
     fs.mkdirSync(outputDirectory);
   }
 
-  //core.info('Show environment variables');
-  //const data = JSON.stringify(process.env);
-  //core.info(data);
-  //if (outputDirectory) {
-  //  const outputFile = path.join(outputDirectory, `env.txt`);
-  //  fs.writeFileSync(outputFile, data);
-  //}
-  //core.endGroup();
+  core.info('Show environment variables');
+  const data = util.inspect(process.env);
+  core.info(data);
+  if (outputDirectory) {
+    const outputFile = path.join(outputDirectory, `env.txt`);
+    fs.writeFileSync(outputFile, data);
+  }
+  core.endGroup();
 
   show('env', envContext, outputDirectory);
   show('github', githubContext, outputDirectory);
@@ -44,7 +44,6 @@ const run = async () => {
   show('job', jobContext, outputDirectory);
   show('matrix', matrixContext, outputDirectory);
   show('runner', runnerContext, outputDirectory);
-  show('secrets', secretsContext, outputDirectory);
   show('steps', stepsContext, outputDirectory);
   show('strategy', strategyContext, outputDirectory);
 }

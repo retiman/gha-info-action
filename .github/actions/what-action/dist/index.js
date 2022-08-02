@@ -42,6 +42,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
+const process = __importStar(__nccwpck_require__(282));
+const util = __importStar(__nccwpck_require__(837));
 const show = (name, data, outputDirectory) => {
     core.startGroup(`Show '${name}' context`);
     core.info(data);
@@ -58,28 +60,26 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const jobContext = core.getInput('job-context', { required: false });
     const matrixContext = core.getInput('matrix-context', { required: false });
     const runnerContext = core.getInput('runner-context', { required: false });
-    const secretsContext = core.getInput('secrets-context', { required: false });
     const stepsContext = core.getInput('steps-context', { required: false });
     const strategyContext = core.getInput('strategy-context', { required: false });
     const outputDirectory = core.getInput('output-directory', { required: false });
     if (outputDirectory) {
         fs.mkdirSync(outputDirectory);
     }
-    //core.info('Show environment variables');
-    //const data = JSON.stringify(process.env);
-    //core.info(data);
-    //if (outputDirectory) {
-    //  const outputFile = path.join(outputDirectory, `env.txt`);
-    //  fs.writeFileSync(outputFile, data);
-    //}
-    //core.endGroup();
+    core.info('Show environment variables');
+    const data = util.inspect(process.env);
+    core.info(data);
+    if (outputDirectory) {
+        const outputFile = path.join(outputDirectory, `env.txt`);
+        fs.writeFileSync(outputFile, data);
+    }
+    core.endGroup();
     show('env', envContext, outputDirectory);
     show('github', githubContext, outputDirectory);
     show('inputs', inputsContext, outputDirectory);
     show('job', jobContext, outputDirectory);
     show('matrix', matrixContext, outputDirectory);
     show('runner', runnerContext, outputDirectory);
-    show('secrets', secretsContext, outputDirectory);
     show('steps', stepsContext, outputDirectory);
     show('strategy', strategyContext, outputDirectory);
 });
@@ -2167,6 +2167,14 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 282:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
 
 /***/ }),
 

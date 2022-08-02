@@ -22,8 +22,6 @@ inputs:
     required: false
   matrix-context:
     required: false
-  needs-context:
-    required: true
   runner-context:
     required: true
   steps-context:
