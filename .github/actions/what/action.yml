@@ -70,12 +70,12 @@ runs:
         echo "${value}"
         echo "${value}" > ${{ inputs.output-directory }}/strategy-context.txt
 
-    - name: Print environment variables
-      shell: bash
-      run: |
-        value="$(env)"
-        echo "${value}"
-        echo "${value}" > ${{ inputs.output-directory }}/env.txt
+    #- name: Print environment variables
+    #  shell: bash
+    #  run: |
+    #    value="$(env)"
+    #    echo "${value}"
+    #    echo "${value}" > ${{ inputs.output-directory }}/env.txt
 
     - name: Upload data
       uses: actions/upload-artifact@v2
