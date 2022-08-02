@@ -59,13 +59,14 @@ runs:
 
     - name: Print steps context
       shell: bash
+      run: |
         value="${{ toJSON(steps) }}"
         echo "${value}"
         echo "${value}" > ${{ inputs.output-directory }}/steps-context.txt
 
     - name: Print strategy context
       shell: bash
-      shell: bash
+      run: |
         value="${{ toJSON(strategy) }}"
         echo "${value}"
         echo "${value}" > ${{ inputs.output-directory }}/strategy-context.txt
