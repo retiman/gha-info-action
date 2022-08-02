@@ -19,7 +19,9 @@ runs:
       shell: bash
       run: |
         value='${{ toJSON(github) }}'
+        echo "::group::Show github context"
         echo "${value}" > ${{ inputs.output-directory }}/context.txt
+        echo "::endgroup::"
         cat ${{ inputs.output-directory }}/context.txt
 
     #- name: Show github context
