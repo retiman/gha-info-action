@@ -1,0 +1,37 @@
+name: what-action
+author: min.huang@alumni.usc.edu
+description: >
+  What is GitHub Actions all about?
+
+  https://docs.github.com/en/actions/learn-github-actions/contexts
+inputs:
+  env-context:
+    required: false
+    default: ${{ toJSON(env) }}
+  github-context:
+    required: false
+    default: ${{ toJSON(github) }}
+  inputs-context:
+    required: false
+    default: ${{ toJSON(inputs) }}
+  job-context:
+    required: false
+    default: ${{ toJSON(job) }}
+  matrix-context:
+    required: false
+    default: ${{ toJSON(matrix) }}
+  needs-context:
+    required: true
+    default: ${{ toJSON(needs) }}
+  runner-context:
+    required: true
+    default: ${{ toJSON(runner) }}
+  steps-context:
+    required: true
+    default: ${{ toJSON(steps) }}
+  strategy-context:
+    required: true
+    default: ${{ toJSON(strategy) }}
+runs:
+  using: node16
+  main: dist/index.js
