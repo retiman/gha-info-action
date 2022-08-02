@@ -1,0 +1,15 @@
+name: Test
+
+on:
+  pull_request:
+
+jobs:
+  show:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Say what's up?
+        uses: ./.github/actions/up-action

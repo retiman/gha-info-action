@@ -1,0 +1,30 @@
+name: up-action
+author: min.huang@alumni.usc.edu
+description: >
+  What is GitHub Actions all about?
+
+  https://docs.github.com/en/actions/learn-github-actions/contexts
+inputs:
+  upload-directory:
+    required: false
+    default: ${{ github.workspace }}/output
+runs:
+  using: composite
+  steps:
+    - name: What?
+      uses: ./.github/actions/what-action
+      with:
+        output-directory: ${{ github.workspace }}/output
+        env-context: ${{ toJSON(env) }}
+        github-context: ${{ toJSON(github) }}
+        inputs-context: ${{ toJSON(inputs) }}
+        job-context: ${{ toJSON(job) }}
+        matrix-context: ${{ toJSON(matrix) }}
+        runner-context: ${{ toJSON(runner) }}
+        steps-context: ${{ toJSON(steps) }}
+        strategy-context: ${{ toJSON(strategy )}}
+
+    - name: Up?
+      uses: actions/upload-artifact@v2
+      with:
+        path: output

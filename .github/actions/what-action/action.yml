@@ -1,0 +1,33 @@
+name: what-action
+author: min.huang@alumni.usc.edu
+description: >
+  What is GitHub Actions all about?
+
+  https://docs.github.com/en/actions/learn-github-actions/contexts
+inputs:
+  output-directory:
+    required: false
+    default: ${{ github.workspace }}/output
+  # Note that something like `default: ${{ toJson(env) }}` is not available in the inputs of action.yml.  It is
+  # available in the `runs` section of a composite action though.
+  #
+  # To avoid repeating these, use the `up-action` composite in workflows where you want to show contexts.
+  env-context:
+    required: false
+  github-context:
+    required: false
+  inputs-context:
+    required: false
+  job-context:
+    required: false
+  matrix-context:
+    required: false
+  runner-context:
+    required: true
+  steps-context:
+    required: true
+  strategy-context:
+    required: true
+runs:
+  using: node16
+  main: dist/index.js
