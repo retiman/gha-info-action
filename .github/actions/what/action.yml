@@ -19,13 +19,15 @@ runs:
       shell: bash
       run: |
         value="$(printenv)"
-        echo "$value" > ${{ inputs.output-directory }}/env.txt
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/env.txt
 
     - name: Print env context
       shell: bash
       run: |
-        value = '${{ toJSON(env) }}'
-        echo $value > ${{ inputs.output-directory }}/env-context.txt
+        value="${{ toJSON(env) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/env-context.txt
 
     - name: Print github context
       shell: bash
