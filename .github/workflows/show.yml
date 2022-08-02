@@ -1,7 +1,9 @@
-name: Test
+name: What is GitHub Actions?
 
 on:
+  workflow_dispatch:
   pull_request:
+  push:
 
 jobs:
   show:
