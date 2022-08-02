@@ -25,14 +25,14 @@ const run = async () => {
   const strategyContext = core.getInput('strategy-context', { required: false });
   const outputDirectory = core.getInput('output-directory', { required: false });
 
-  core.info('Show environment variables');
-  const data = JSON.stringify(process.env);
-  core.info(data);
-  if (outputDirectory) {
-    const outputFile = path.join(outputDirectory, `env.txt`);
-    fs.writeFileSync(outputFile, data);
-  }
-  core.endGroup();
+  //core.info('Show environment variables');
+  //const data = JSON.stringify(process.env);
+  //core.info(data);
+  //if (outputDirectory) {
+  //  const outputFile = path.join(outputDirectory, `env.txt`);
+  //  fs.writeFileSync(outputFile, data);
+  //}
+  //core.endGroup();
 
   show('env', envContext, outputDirectory);
   show('github', githubContext, outputDirectory);

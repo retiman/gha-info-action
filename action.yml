@@ -5,6 +5,9 @@ description: >
 
   https://docs.github.com/en/actions/learn-github-actions/contexts
 inputs:
+  output-directory:
+    required: false
+    default: ${{ github.workspace }}/output
   # Note that something like `default: ${{ toJson(env) }}` is not available in the inputs of action.yml.  It is
   # available in the `runs` section of a composite action though.
   env-context:
