@@ -5,9 +5,6 @@ inputs:
   output-directory:
     required: false
     default: ${{ github.workspace }}/output
-  needs:
-    required: false
-    default: ${{ needs }}
 runs:
   using: composite
   steps:
@@ -43,9 +40,9 @@ runs:
       shell: bash
       run: echo '${{ toJSON(matrix) }}' > ${{ inputs.output-directory }}/matrix-context.txt
 
-    - name: Print needs context
-      shell: bash
-      run: echo '${{ toJSON(needs) }}' > ${{ inputs.output-directory }}/needs-context.txt
+    #- name: Print needs context
+    #  shell: bash
+    #  run: echo '${{ toJSON(needs) }}' > ${{ inputs.output-directory }}/needs-context.txt
 
     - name: Print runner context
       shell: bash
