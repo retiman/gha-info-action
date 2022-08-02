@@ -18,9 +18,9 @@ runs:
     - name: Show env context
       shell: bash
       run: |
-        value='${{ toJSON(env) }}'
-        echo "${value}" > ${{ inputs.output-directory }}/env-context.txt
-        cat ${{ inputs.output-directory }}/env-context.txt
+        value='${{ toJSON(github) }}'
+        echo "${value}" > ${{ inputs.output-directory }}/context.txt
+        cat ${{ inputs.output-directory }}/context.txt
 
     #- name: Show github context
     #  shell: bash
