@@ -19,7 +19,7 @@ runs:
       shell: bash
       run: |
         value="$(printenv)"
-        echo $value > ${{ inputs.output-directory }}/env.txt
+        echo "$value" > ${{ inputs.output-directory }}/env.txt
 
     - name: Print env context
       shell: bash
