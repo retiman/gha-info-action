@@ -5,33 +5,26 @@ description: >
 
   https://docs.github.com/en/actions/learn-github-actions/contexts
 inputs:
+  # Note that something like `default: ${{ toJson(env) }}` is not available in the inputs of action.yml.  It is
+  # available in the `runs` section of a composite action though.
   env-context:
     required: false
-    default: ${{ toJSON(env) }}
   github-context:
     required: false
-    default: ${{ toJSON(github) }}
   inputs-context:
     required: false
-    default: ${{ toJSON(inputs) }}
   job-context:
     required: false
-    default: ${{ toJSON(job) }}
   matrix-context:
     required: false
-    default: ${{ toJSON(matrix) }}
   needs-context:
     required: true
-    default: ${{ toJSON(needs) }}
   runner-context:
     required: true
-    default: ${{ toJSON(runner) }}
   steps-context:
     required: true
-    default: ${{ toJSON(steps) }}
   strategy-context:
     required: true
-    default: ${{ toJSON(strategy) }}
 runs:
   using: node16
   main: dist/index.js
