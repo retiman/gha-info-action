@@ -20,7 +20,6 @@ runs:
         inputs-context: ${{ toJSON(inputs) }}
         job-context: ${{ toJSON(job) }}
         matrix-context: ${{ toJSON(matrix) }}
-        needs-context: ${{ toJSON(needs) }}
         runner-context: ${{ toJSON(runner) }}
         steps-context: ${{ toJSON(steps) }}
         strategy-context: ${{ toJSON(strategy )}}
