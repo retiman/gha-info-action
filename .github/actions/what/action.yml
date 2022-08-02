@@ -39,9 +39,9 @@ runs:
     - name: Show job context
       shell: bash
       run: |
-        value="${{ toJSON(jobs) }}"
+        value="${{ toJSON(job) }}"
         echo "${value}"
-        echo "${value}" > ${{ inputs.output-directory }}/jobs-context.txt
+        echo "${value}" > ${{ inputs.output-directory }}/job-context.txt
 
     - name: Show matrix context
       shell: bash
