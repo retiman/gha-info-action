@@ -11,16 +11,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Say what?
-        uses: ./
-        with:
-          output-directory: ${{ github.workspace }}/output
-          env-context: ${{ toJSON(env) }}
-          github-context: ${{ toJSON(github) }}
-          inputs-context:  ${{ toJSON(inputs) }}
-          job-context: ${{ toJSON(job) }}
-          matrix-context: ${{ toJSON(matrix) }}
-          needs-context: ${{ toJSON(needs) }}
-          runner-context: ${{ toJSON(runner) }}
-          steps-context: ${{ toJSON(steps) }}
-          strategy-context:  ${{ toJSON(strategy) }}
+      - name: Say what's up?
+        uses: ./.github/actions/up-action
