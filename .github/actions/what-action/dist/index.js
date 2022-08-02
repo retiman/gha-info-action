@@ -66,7 +66,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     if (outputDirectory) {
         fs.mkdirSync(outputDirectory);
     }
-    core.info('Show environment variables');
+    core.startGroup('Show environment variables');
     const data = util.inspect(process.env);
     core.info(data);
     if (outputDirectory) {
