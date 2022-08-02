@@ -29,7 +29,7 @@ const run = async () => {
     fs.mkdirSync(outputDirectory);
   }
 
-  core.info('Show environment variables');
+  core.startGroup('Show environment variables');
   const data = util.inspect(process.env);
   core.info(data);
   if (outputDirectory) {
