@@ -25,6 +25,10 @@ const run = async () => {
   const strategyContext = core.getInput('strategy-context', { required: false });
   const outputDirectory = core.getInput('output-directory', { required: false });
 
+  if (outputDirectory) {
+    fs.mkdirSync(outputDirectory);
+  }
+
   //core.info('Show environment variables');
   //const data = JSON.stringify(process.env);
   //core.info(data);

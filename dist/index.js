@@ -62,6 +62,9 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const stepsContext = core.getInput('steps-context', { required: false });
     const strategyContext = core.getInput('strategy-context', { required: false });
     const outputDirectory = core.getInput('output-directory', { required: false });
+    if (outputDirectory) {
+        fs.mkdirSync(outputDirectory);
+    }
     //core.info('Show environment variables');
     //const data = JSON.stringify(process.env);
     //core.info(data);
