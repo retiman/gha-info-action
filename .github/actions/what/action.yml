@@ -15,51 +15,67 @@ runs:
       shell: bash
       run: mkdir ${{ inputs.output-directory }}
 
-    - name: Print environment variables
-      shell: bash
-      run: |
-        value="$(env)"
-        echo "${value}"
-        echo "${value}" > ${{ inputs.output-directory }}/env.txt
-
-    - name: Print env context
+    - name: Show env context
       shell: bash
       run: |
         value="${{ toJSON(env) }}"
         echo "${value}"
         echo "${value}" > ${{ inputs.output-directory }}/env-context.txt
 
-    - name: Print github context
+    - name: Show github context
       shell: bash
-      run: echo '${{ toJSON(github) }}' > ${{ inputs.output-directory }}/env-context.txt
+      run: |
+        value="${{ toJSON(github) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/github-context.txt
 
-    - name: Print inputs context
+    - name: Show inputs context
       shell: bash
-      run: echo '${{ toJSON(inputs) }}' > ${{ inputs.output-directory }}/inputs-context.txt
+      run: |
+        value="${{ toJSON(inputs) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/inputs-context.txt
 
-    - name: Print job context
+    - name: Show job context
       shell: bash
-      run: echo '${{ toJSON(job) }}' > ${{ inputs.output-directory }}/job-context.txt
+      run: |
+        value="${{ toJSON(jobs) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/jobs-context.txt
 
-    - name: Print matrix context
+    - name: Show matrix context
       shell: bash
-      run: echo '${{ toJSON(matrix) }}' > ${{ inputs.output-directory }}/matrix-context.txt
-
-    #- name: Print needs context
-    #  shell: bash
-    #  run: echo '${{ toJSON(needs) }}' > ${{ inputs.output-directory }}/needs-context.txt
+      run: |
+        value="${{ toJSON(matrix) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/matrix-context.txt
 
     - name: Print runner context
       shell: bash
-      run: echo '${{ toJSON(runner) }}' > ${{ inputs.output-directory }}/runner-context.txt
+      run: |
+        value="${{ toJSON(runner) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/matrix-context.txt
 
     - name: Print steps context
       shell: bash
-      run: echo '${{ toJSON(steps) }}' > ${{ inputs.output-directory }}/steps-context.txt
+        value="${{ toJSON(steps) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/steps-context.txt
 
     - name: Print strategy context
       shell: bash
-      run: echo '${{ toJSON(strategy) }}' > ${{ inputs.output-directory }}/strategy-context.txt
+      shell: bash
+        value="${{ toJSON(strategy) }}"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/strategy-context.txt
+
+    - name: Print environment variables
+      shell: bash
+      run: |
+        value="$(env)"
+        echo "${value}"
+        echo "${value}" > ${{ inputs.output-directory }}/env.txt
 
     - name: Upload data
       uses: actions/upload-artifact@v2
