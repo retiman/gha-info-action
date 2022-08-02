@@ -12,6 +12,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: test
-        uses: ./
+        uses: ./github/actions/what
         with:
           needs: ${{ needs }}
