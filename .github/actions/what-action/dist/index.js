@@ -79,19 +79,29 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     core.startGroup('Show environment variables');
     const data = util.inspect(process.env);
-    // This data will be masked but only in the logs.
-    delete data['ACTIONS_RUNTIME_TOKEN'];
-    delete data['GITHUB_TOKEN'];
-    // This data will already be printed out.  Printing it out again in
-    // environment variables makes the output huge.
-    delete data['INPUT_ENV-CONTEXT'];
-    delete data['INPUT_GITHUB-CONTEXT'];
-    delete data['INPUT_INPUTS-CONTEXT'];
-    delete data['INPUT_JOB-CONTEXT'];
-    delete data['INPUT_MATRIX-CONTEXT'];
-    delete data['INPUT_RUNNER-CONTEXT'];
-    delete data['INPUT_STEPS-CONTEXT'];
-    delete data['INPUT_STRATEGY-CONTEXT'];
+    const removable = [
+        // This data will be masked but only in the logs.
+        'ACTIONS_RUNTIME_TOKEN',
+        'GITHUB_TOKEN',
+        // This data will already be printed out.  Printing it out again in
+        // environment variables makes the output huge.
+        'INPUT_ENV-CONTEXT',
+        'INPUT_GITHUB-CONTEXT',
+        'INPUT_INPUTS-CONTEXT',
+        'INPUT_JOB-CONTEXT',
+        'INPUT_MATRIX-CONTEXT',
+        'INPUT_RUNNER-CONTEXT',
+        'INPUT_STEPS-CONTEXT',
+        'INPUT_STRATEGY-CONTEXT',
+    ];
+    removable.forEach((key) => {
+        delete data[key];
+        // I really cannot explain why, but INPUT_ environment variables are single
+        // quoted.
+        if (key.startsWith('INPUT_')) {
+            delete data[`'${key}'`];
+        }
+    });
     core.info(data);
     if (outputDirectory) {
         const outputFile = path.join(outputDirectory, `env.txt`);
