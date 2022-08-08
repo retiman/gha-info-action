@@ -14,22 +14,25 @@
     "url": "https://github.com/retiman/github-actions/issues"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json && ncc --out dist --source-map --target es2015 --license LICENSE build build",
-    "format": "prettier --write src test",
-    "lint": "eslint --fix --ext .ts src test",
-    "all": "npm run format && npm run lint && npm run dist"
+    "build": "tsc --project tsconfig.json",
+    "dist": "ncc --out dist --source-map --target es2015 --license LICENSE build build",
+    "format": "prettier --write src",
+    "lint": "eslint --fix --ext .ts src",
+    "all": "npm run format && npm run lint && npm run build && npm run dist"
   },
   "main": "dist/index.js",
-	"dependencies": {
-		"@actions/core": "^1.9.0"
-	},
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "npm": "^8.16.0"
+  },
   "devDependencies": {
     "@types/node": "^17.0.33",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
-    "@typescript-eslint/parser": "^5.25.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "@vercel/ncc": "^0.33.4",
     "editorconfig": "^0.15.3",
-    "eslint": "^8.15.0",
+    "eslint": "^8.21.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",

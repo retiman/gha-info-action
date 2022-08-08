@@ -45,11 +45,18 @@ const path = __importStar(__nccwpck_require__(17));
 const process = __importStar(__nccwpck_require__(282));
 const util = __importStar(__nccwpck_require__(837));
 const show = (name, data, outputDirectory) => {
+    let value = data;
+    if (name === 'github') {
+        const obj = JSON.parse(data);
+        // This will be masked in the logs, but not in any other output.
+        delete obj['token'];
+        value = JSON.stringify(obj);
+    }
     core.startGroup(`Show '${name}' context`);
-    core.info(data);
+    core.info(value);
     if (outputDirectory) {
         const outputFile = path.join(outputDirectory, `${name}-context.json`);
-        fs.writeFileSync(outputFile, data);
+        fs.writeFileSync(outputFile, value);
     }
     core.endGroup();
 };
@@ -61,13 +68,30 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const matrixContext = core.getInput('matrix-context', { required: false });
     const runnerContext = core.getInput('runner-context', { required: false });
     const stepsContext = core.getInput('steps-context', { required: false });
-    const strategyContext = core.getInput('strategy-context', { required: false });
-    const outputDirectory = core.getInput('output-directory', { required: false });
+    const strategyContext = core.getInput('strategy-context', {
+        required: false,
+    });
+    const outputDirectory = core.getInput('output-directory', {
+        required: false,
+    });
     if (outputDirectory) {
         fs.mkdirSync(outputDirectory);
     }
     core.startGroup('Show environment variables');
     const data = util.inspect(process.env);
+    // This data will be masked but only in the logs.
+    delete data['ACTIONS_RUNTIME_TOKEN'];
+    delete data['GITHUB_TOKEN'];
+    // This data will already be printed out.  Printing it out again in
+    // environment variables makes the output huge.
+    delete data['INPUT_ENV-CONTEXT'];
+    delete data['INPUT_GITHUB-CONTEXT'];
+    delete data['INPUT_INPUTS-CONTEXT'];
+    delete data['INPUT_JOB-CONTEXT'];
+    delete data['INPUT_MATRIX-CONTEXT'];
+    delete data['INPUT_RUNNER-CONTEXT'];
+    delete data['INPUT_STEPS-CONTEXT'];
+    delete data['INPUT_STRATEGY-CONTEXT'];
     core.info(data);
     if (outputDirectory) {
         const outputFile = path.join(outputDirectory, `env.txt`);
