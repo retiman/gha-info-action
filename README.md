@@ -1,7 +1,3 @@
 # github-actions
 
-GitHub Actions - how do they work?
-
-I don't know.
-
-But these workflow runs might be able to tell you what's going on.
+What do [GHA contexts](https://docs.github.com/en/actions/learn-github-actions/contexts) look like?  View the log for [workflows](https://github.com/retiman/github-actions/actions/workflows/show.yml) that print out context information.
