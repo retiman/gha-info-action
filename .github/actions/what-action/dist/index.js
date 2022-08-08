@@ -50,7 +50,7 @@ const show = (name, data, outputDirectory) => {
         const obj = JSON.parse(data);
         // This will be masked in the logs, but not in any other output.
         delete obj['token'];
-        value = JSON.stringify(obj);
+        value = util.inspect(obj);
     }
     core.startGroup(`Show '${name}' context`);
     core.info(value);
@@ -95,11 +95,11 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         'INPUT_STRATEGY-CONTEXT',
     ];
     removable.forEach((key) => {
-        delete data[key];
+        data[key] = '***';
         // I really cannot explain why, but INPUT_ environment variables are single
         // quoted.
         if (key.startsWith('INPUT_')) {
-            delete data[`'${key}'`];
+            data[`'${key}'`] = '***';
         }
     });
     core.info(data);
