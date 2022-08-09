@@ -60,25 +60,12 @@ const show = (name, data, outputDirectory) => {
     }
     core.endGroup();
 };
-const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    const envContext = core.getInput('env-context', { required: false });
-    const githubContext = core.getInput('github-context', { required: false });
-    const inputsContext = core.getInput('inputs-context', { required: false });
-    const jobContext = core.getInput('job-context', { required: false });
-    const matrixContext = core.getInput('matrix-context', { required: false });
-    const runnerContext = core.getInput('runner-context', { required: false });
-    const stepsContext = core.getInput('steps-context', { required: false });
-    const strategyContext = core.getInput('strategy-context', {
-        required: false,
-    });
-    const outputDirectory = core.getInput('output-directory', {
-        required: false,
-    });
-    if (outputDirectory) {
-        fs.mkdirSync(outputDirectory);
-    }
+const envvars = (outputDirectory) => {
     core.startGroup('Show environment variables');
-    const data = util.inspect(process.env);
+    const data = {};
+    Object.keys(process.env).forEach((key) => {
+        data[key] = process.env[key];
+    });
     const removable = [
         // This data will be masked but only in the logs.
         'ACTIONS_RUNTIME_TOKEN',
@@ -102,12 +89,32 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             data[`'${key}'`] = '***';
         }
     });
-    core.info(data);
+    const value = util.inspect(data);
+    core.info(value);
     if (outputDirectory) {
         const outputFile = path.join(outputDirectory, `env.txt`);
-        fs.writeFileSync(outputFile, data);
+        fs.writeFileSync(outputFile, value);
     }
     core.endGroup();
+};
+const run = () => __awaiter(void 0, void 0, void 0, function* () {
+    const envContext = core.getInput('env-context', { required: false });
+    const githubContext = core.getInput('github-context', { required: false });
+    const inputsContext = core.getInput('inputs-context', { required: false });
+    const jobContext = core.getInput('job-context', { required: false });
+    const matrixContext = core.getInput('matrix-context', { required: false });
+    const runnerContext = core.getInput('runner-context', { required: false });
+    const stepsContext = core.getInput('steps-context', { required: false });
+    const strategyContext = core.getInput('strategy-context', {
+        required: false,
+    });
+    const outputDirectory = core.getInput('output-directory', {
+        required: false,
+    });
+    if (outputDirectory) {
+        fs.mkdirSync(outputDirectory);
+    }
+    envvars(outputDirectory);
     show('env', envContext, outputDirectory);
     show('github', githubContext, outputDirectory);
     show('inputs', inputsContext, outputDirectory);
