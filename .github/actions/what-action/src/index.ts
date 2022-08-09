@@ -9,8 +9,13 @@ const show = (name: string, data: string, outputDirectory?: string) => {
   if (name === 'github') {
     const obj = JSON.parse(data);
     // This will be masked in the logs, but not in any other output.
-    delete obj['token'];
-    value = util.inspect(obj);
+    obj['token'] = '***';
+    value = util.inspect(obj, {
+      colors: false,
+      compact: false,
+      depth: 3,
+      sorted: true,
+    });
   }
 
   core.startGroup(`Show '${name}' context`);
@@ -46,14 +51,14 @@ const envvars = (outputDirectory?: string) => {
   ];
   removable.forEach((key) => {
     data[key] = '***';
-    // I really cannot explain why, but INPUT_ environment variables are single
-    // quoted.
-    if (key.startsWith('INPUT_')) {
-      data[`'${key}'`] = '***';
-    }
   });
 
-  const value = util.inspect(data);
+  const value = util.inspect(data, {
+    colors: false,
+    compact: false,
+    depth: 3,
+    sorted: true,
+  });
   core.info(value);
   if (outputDirectory) {
     const outputFile = path.join(outputDirectory, `env.txt`);
