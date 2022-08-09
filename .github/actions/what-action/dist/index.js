@@ -45,11 +45,55 @@ const path = __importStar(__nccwpck_require__(17));
 const process = __importStar(__nccwpck_require__(282));
 const util = __importStar(__nccwpck_require__(837));
 const show = (name, data, outputDirectory) => {
+    let value = data;
+    if (name === 'github') {
+        const obj = JSON.parse(data);
+        // This will be masked in the logs, but not in any other output.
+        delete obj['token'];
+        value = util.inspect(obj);
+    }
     core.startGroup(`Show '${name}' context`);
-    core.info(data);
+    core.info(value);
     if (outputDirectory) {
         const outputFile = path.join(outputDirectory, `${name}-context.json`);
-        fs.writeFileSync(outputFile, data);
+        fs.writeFileSync(outputFile, value);
+    }
+    core.endGroup();
+};
+const envvars = (outputDirectory) => {
+    core.startGroup('Show environment variables');
+    const data = {};
+    Object.keys(process.env).forEach((key) => {
+        data[key] = process.env[key];
+    });
+    const removable = [
+        // This data will be masked but only in the logs.
+        'ACTIONS_RUNTIME_TOKEN',
+        'GITHUB_TOKEN',
+        // This data will already be printed out.  Printing it out again in
+        // environment variables makes the output huge.
+        'INPUT_ENV-CONTEXT',
+        'INPUT_GITHUB-CONTEXT',
+        'INPUT_INPUTS-CONTEXT',
+        'INPUT_JOB-CONTEXT',
+        'INPUT_MATRIX-CONTEXT',
+        'INPUT_RUNNER-CONTEXT',
+        'INPUT_STEPS-CONTEXT',
+        'INPUT_STRATEGY-CONTEXT',
+    ];
+    removable.forEach((key) => {
+        data[key] = '***';
+        // I really cannot explain why, but INPUT_ environment variables are single
+        // quoted.
+        if (key.startsWith('INPUT_')) {
+            data[`'${key}'`] = '***';
+        }
+    });
+    const value = util.inspect(data);
+    core.info(value);
+    if (outputDirectory) {
+        const outputFile = path.join(outputDirectory, `env.txt`);
+        fs.writeFileSync(outputFile, value);
     }
     core.endGroup();
 };
@@ -61,19 +105,16 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const matrixContext = core.getInput('matrix-context', { required: false });
     const runnerContext = core.getInput('runner-context', { required: false });
     const stepsContext = core.getInput('steps-context', { required: false });
-    const strategyContext = core.getInput('strategy-context', { required: false });
-    const outputDirectory = core.getInput('output-directory', { required: false });
+    const strategyContext = core.getInput('strategy-context', {
+        required: false,
+    });
+    const outputDirectory = core.getInput('output-directory', {
+        required: false,
+    });
     if (outputDirectory) {
         fs.mkdirSync(outputDirectory);
     }
-    core.startGroup('Show environment variables');
-    const data = util.inspect(process.env);
-    core.info(data);
-    if (outputDirectory) {
-        const outputFile = path.join(outputDirectory, `env.txt`);
-        fs.writeFileSync(outputFile, data);
-    }
-    core.endGroup();
+    envvars(outputDirectory);
     show('env', envContext, outputDirectory);
     show('github', githubContext, outputDirectory);
     show('inputs', inputsContext, outputDirectory);
