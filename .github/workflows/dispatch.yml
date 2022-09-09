@@ -10,7 +10,7 @@ on:
 
 jobs:
   reusable:
-    uses: retiman/github-actions/.github/workflows/reusable.yml
+    uses: retiman/github-actions/.github/workflows/reusable.yml@main
     with:
       # We must use this comparison, or else simply passing the value of the workflow_dispatch input as is will result
       # in this error:
