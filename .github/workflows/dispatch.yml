@@ -31,6 +31,6 @@ jobs:
 
       - name: inputs.dispatch_boolean
         run: |
-          echo "inputs.dispatch_boolean: ${{ event.inputs.dispatch_boolean }}"
-          echo "inputs.dispatch_boolean == true? ${{ event.inputs.dispatch_boolean == true }}"
-          echo "inputs.dispatch_boolean == 'true'? ${{ event.inputs.dispatch_boolean == 'true' }}"
+          echo "inputs.dispatch_boolean: ${{ inputs.dispatch_boolean }}"
+          echo "inputs.dispatch_boolean == true? ${{ inputs.dispatch_boolean == true }}"
+          echo "inputs.dispatch_boolean == 'true'? ${{ inputs.dispatch_boolean == 'true' }}"
