@@ -1,0 +1,25 @@
+name: Reusable
+
+on:
+  workflow_call:
+    inputs:
+      call_boolean:
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: github.event.inputs.call_boolean
+        run: |
+          echo "github.event.inputs.call_boolean: ${{ github.event.inputs.call_boolean }}"
+          echo "github.event.inputs.call_boolean == true? ${{ github.event.inputs.call_boolean == true }}"
+          echo "github.event.inputs.call_boolean == 'true'? ${{ github.event.inputs.call_boolean == 'true' }}"
+
+      - name: inputs.call_boolean
+        run: |
+          echo "inputs.call_boolean: ${{ event.inputs.call_boolean }}"
+          echo "inputs.call_boolean == true? ${{ event.inputs.call_boolean == true }}"
+          echo "inputs.call_boolean == 'true'? ${{ event.inputs.call_boolean == 'true' }}"
