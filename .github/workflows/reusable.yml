@@ -20,6 +20,6 @@ jobs:
 
       - name: inputs.call_boolean
         run: |
-          echo "inputs.call_boolean: ${{ event.inputs.call_boolean }}"
-          echo "inputs.call_boolean == true? ${{ event.inputs.call_boolean == true }}"
-          echo "inputs.call_boolean == 'true'? ${{ event.inputs.call_boolean == 'true' }}"
+          echo "inputs.call_boolean: ${{ inputs.call_boolean }}"
+          echo "inputs.call_boolean == true? ${{ inputs.call_boolean == true }}"
+          echo "inputs.call_boolean == 'true'? ${{ inputs.call_boolean == 'true' }}"
