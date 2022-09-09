@@ -1,0 +1,33 @@
+name: Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      dispatch_boolean:
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  reusable:
+    uses: retiman/github-actions/.github/workflows/reusable.yml
+    with:
+      # We must use this comparison, or else simply passing the value of the workflow_dispatch input as is will result
+      # in this error:
+      #
+      # The template is not valid. .github/workflows/dispatch.yml (Line: 15, Col: 21): Unexpected type of value 'true', expected type: Boolean.
+      call_boolean: ${{ github.event.inputs.dispatch_boolean == 'true' }}
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: github.event.inputs.dispatch_boolean
+        run: |
+          echo "github.event.inputs.dispatch_boolean: ${{ github.event.inputs.dispatch_boolean }}"
+          echo "github.event.inputs.dispatch_boolean == true? ${{ github.event.inputs.dispatch_boolean == true }}"
+          echo "github.event.inputs.dispatch_boolean == 'true'? ${{ github.event.inputs.dispatch_boolean == 'true' }}"
+
+      - name: inputs.dispatch_boolean
+        run: |
+          echo "inputs.dispatch_boolean: ${{ event.inputs.dispatch_boolean }}"
+          echo "inputs.dispatch_boolean == true? ${{ event.inputs.dispatch_boolean == true }}"
+          echo "inputs.dispatch_boolean == 'true'? ${{ event.inputs.dispatch_boolean == 'true' }}"
