@@ -16,6 +16,9 @@ jobs:
       # in this error:
       #
       # The template is not valid. .github/workflows/dispatch.yml (Line: 15, Col: 21): Unexpected type of value 'true', expected type: Boolean.
+      #
+      # So apparently the workflow_dispatch input must be a boolean, but then is converted to a string, which cannot be
+      # passed to the reusable workflow as is; it must be converted to a boolean (which requires a boolean).
       call_boolean: ${{ github.event.inputs.dispatch_boolean == 'true' }}
   testing:
     runs-on: ubuntu-latest

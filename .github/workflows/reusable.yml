@@ -5,6 +5,7 @@ on:
     inputs:
       call_boolean:
         type: boolean
+        required: true
         default: true
 
 jobs:
