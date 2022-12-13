@@ -16,5 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Say what's up?
-        uses: ./.github/actions/up-action
+      - name: Testing
+        run: |
+          echo "${{ true && 'hi' }}"
