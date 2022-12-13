@@ -19,3 +19,5 @@ jobs:
       - name: Testing
         run: |
           echo "${{ true && 'hi' }}"
+          echo "${{ false && 'hi' }}"
+          echo "${{ 'hi' && 'bye' }}"
