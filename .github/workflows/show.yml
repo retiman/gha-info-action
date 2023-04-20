@@ -8,13 +8,17 @@ on:
       - main
 
 jobs:
-  show:
-    environment: prod
+  t1:
+    runs-on:
+      - ubuntu-latest
+    outputs:
+      b: ${{ 'a' == 'a' }}
+    steps:
+      - run: echo 'Hello world!'
+  t2:
+    needs: t1
     runs-on:
       - ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Say what's up?
-        uses: ./.github/actions/up-action
+      - run: ${{ needs.t1.outputs.b == 'true' }}
+      - run: ${{ needs.t1.outputs.b == true }}
