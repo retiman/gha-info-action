@@ -23,3 +23,4 @@ jobs:
       - run: echo "${{ needs.t1.outputs.b == 'true' }}"
       - run: echo "${{ needs.t1.outputs.b == true }}"
       - run: echo "${{ needs.t1.outputs.b }}"
+      - run: echo "${{ 'foo' && 'bar' }}"
