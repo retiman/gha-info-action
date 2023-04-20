@@ -20,5 +20,6 @@ jobs:
     runs-on:
       - ubuntu-latest
     steps:
-      - run: ${{ needs.t1.outputs.b == 'true' }}
-      - run: ${{ needs.t1.outputs.b == true }}
+      - run: echo "${{ needs.t1.outputs.b == 'true' }}"
+      - run: echo "${{ needs.t1.outputs.b == true }}"
+      - run: echo "${{ needs.t1.outputs.b }}"
